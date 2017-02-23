@@ -80,8 +80,9 @@ namespace Typesafe.Mailgun
 			}
 
 			result.AddRange(message.Attachments.Select(attachment => new AttachmentFormPart(attachment)));
+            result.AddRange(message.AlternateViews.SelectMany(av => av.LinkedResources.Select(linkedResource => new LinkedResourceFormPart(linkedResource))));
 
-			return result;
+            return result;
 		}
 
 		private static IEnumerable<FormPart> GetBodyParts(this MailMessage message)
